@@ -94,7 +94,7 @@ preferenceMenu 				= document.querySelector('.preferenceMenu'),
 closePreferenceButton 		= document.querySelector('.closePreferenceButton'),
 capitalLettersAllowed 		= document.querySelector('.capitalLettersAllowed'),
 fullSentenceModeToggle		= document.querySelector('.fullSentenceMode'),
-fullSentenceModeLevelButton	= document.querySelector('.lvl8'),
+fullSentenceModeLevelButton	= document.querySelector('.lvl11'),
 requireBackspaceCorrectionToggle = document.querySelector('.requireBackspaceCorrectionToggle'),
 wordLimitModeButton			= document.querySelector('.wordLimitModeButton'),
 wordLimitModeInput			= document.querySelector('.wordLimitModeInput'),
@@ -157,7 +157,7 @@ function start() {
 // the rest should be in start(), which works like an actual init function should
 // RENAME AND REFACTOR THIS PLEASE
 function init() {
-	createTestSets();
+	createTestSets(fuckoff);
 	reset();
 	updateCheatsheetStyling(currentLevel);
 }
@@ -257,7 +257,7 @@ fullSentenceModeToggle.addEventListener('click', ()=> {
 	localStorage.setItem('fullSentenceModeEnabled', fullSentenceModeEnabled);
 	toggleFullSentenceModeUI();
 	if (fullSentenceModeEnabled) {
-		switchLevel(8);
+		switchLevel(11);
 	} else {
 		switchLevel(1);
 	}
@@ -387,7 +387,7 @@ punctuationModeButton.addEventListener('click', ()=> {
 
 	localStorage.setItem('punctuation', punctuation);
 
-	createTestSets();
+	createTestSets(fuckoff);
 	updateCheatsheetStyling(currentLevel);
 	reset();
 	
@@ -1018,9 +1018,9 @@ for(button of buttons) {
 		// int representation of level we are choosing
 		lev = (lev[lev.length-1]);
 		if(b.innerHTML == 'All Words') {
-			lev = 7;
+			lev = 10;
 		}else if(b.innerHTML == 'Full Sentences'){
-			lev = 8;
+			lev = 11;
 		}
 		switchLevel(lev);
 	});
@@ -1042,14 +1042,14 @@ function switchLevel(lev) {
 		document.querySelector('.lvl'+lev).classList.add('currentLevel');
 		
 		// set full sentence mode to true
-		if(lev == 8) {
+		if(lev == 11) {
 			fullSentenceMode = true;
 		} else {
 			fullSentenceMode = false;
 		}
 
-		if(lev == 8) {
-			lev = 7;
+		if(lev == 11) {
+			lev = 10;
 		}
 
 		// window[] here allows us to select the variable levelN, instead of
@@ -1540,7 +1540,7 @@ function clearCurrentLevelStyle() {
 }
 
 // set the word list for each level
-function createTestSets(){
+function createTestSets(fuckoff){
 	let objKeys = Object.keys(wordLists); // the level keys of each of the wordLists
 	let includedLetters = punctuation; // the list of letters to be included in each level
 
@@ -1561,7 +1561,7 @@ function createTestSets(){
 
 		wordLists[objKeys[i]] = [];
 		//console.log('level ' +(i+1) + ": " + wordLists[objKeys[i]]);
-		wordLists[objKeys[i]] = generateList(includedLetters, requiredLetters);
+		wordLists[objKeys[i]] = generateList(includedLetters, requiredLetters, Object.keys(fuckoff));
 		// if(i == 6) console.log('level ' +(i+1) + ": " + wordLists[objKeys[i]]);
 	}
 }
